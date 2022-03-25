@@ -1,1 +1,63 @@
-﻿
+﻿@model RegisterViewModel
+
+@{
+	ViewBag.Title = "Kayıt Ol";
+}
+
+<form asp-controller="Account" asp-action="Register" method="post">
+
+	<!-- UserName input -->
+	<div class="form-outline mb-4">
+		<label asp-for="UserName" class="form-label"></label>
+		<input asp-for="UserName" class="form-control" />
+		<span asp-validation-for="UserName" class="text-danger"></span>
+	</div>
+
+	<!-- Email input -->
+	<div class="form-outline mb-4">
+		<label asp-for="Email" class="form-label"></label>
+		<input type="email" asp-for="Email" class="form-control" />
+		<span asp-validation-for="Email" class="text-danger"></span>
+	</div>
+
+	<!-- Name input -->
+	<div class="form-outline mb-4">
+		<label asp-for="Name" class="form-label"></label>
+		<input asp-for="Name" class="form-control" />
+		<span asp-validation-for="Name" class="text-danger"></span>
+	</div>
+
+	<!-- Surname input -->
+	<div class="form-outline mb-4">
+		<label asp-for="Surname" class="form-label"></label>
+		<input asp-for="Surname" class="form-control" />
+		<span asp-validation-for="Surname" class="text-danger"></span>
+	</div>
+
+	<!-- Password input -->
+	<div class="form-outline mb-4">
+		<label asp-for="Password" class="form-label" for="form1Example2"></label>
+		<input asp-for="Password" type="password" class="form-control" />
+		<span asp-validation-for="Password" class="text-danger"></span>
+	</div>
+
+	<!-- Confirm Password input -->
+	<div class="form-outline mb-4">
+		<label asp-for="ConfirmPassword" class="form-label" for="form1Example2"></label>
+		<input asp-for="ConfirmPassword" type="password" class="form-control" />
+		<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+	</div>
+
+	
+	
+	<div class="row mb-4">
+		<!-- Register link -->
+		<div class="col d-flex justify-content-start align-content-center">
+			<button type="submit" class="btn btn-primary btn-block">Kayıt Ol</button>
+		</div>
+		<!-- Submit button -->
+		<div class="col d-flex justify-content-end align-content-center">
+			<a asp-controller="Account" asp-action="Register" class="login_anchor">Giriş Yap</a>
+		</div>
+	</div>
+</form>
