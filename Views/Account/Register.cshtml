@@ -5,7 +5,7 @@
 }
 
 <form asp-controller="Account" asp-action="Register" method="post">
-
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 	<!-- UserName input -->
 	<div class="form-outline mb-4">
 		<label asp-for="UserName" class="form-label"></label>
@@ -17,7 +17,7 @@
 	<div class="form-outline mb-4">
 		<label asp-for="Email" class="form-label"></label>
 		<input type="email" asp-for="Email" class="form-control" />
-		<span asp-validation-for="Email" class="text-danger"></span>
+		<span asp-validation-summary="Email" class="text-danger"></span>
 	</div>
 
 	<!-- Name input -->
@@ -57,7 +57,7 @@
 		</div>
 		<!-- Submit button -->
 		<div class="col d-flex justify-content-end align-content-center">
-			<a asp-controller="Account" asp-action="Register" class="login_anchor">Giriş Yap</a>
+			<a asp-controller="Account" asp-action="Login" class="login_anchor">Giriş Yap</a>
 		</div>
 	</div>
 </form>

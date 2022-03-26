@@ -1,8 +1,10 @@
-﻿using EnglishQuestionApp.Models.Identity;
+﻿using EnglishQuestionApp.Models;
+using EnglishQuestionApp.Models.Identity;
 using EnglishQuestionApp.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EnglishQuestionApp.Controllers
@@ -10,9 +12,31 @@ namespace EnglishQuestionApp.Controllers
     public class AccountController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        public AccountController(UserManager<ApplicationUser> userManager)
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
+        public AccountController(
+             UserManager<ApplicationUser> userManager,
+             SignInManager<ApplicationUser> signInManager,
+             RoleManager<ApplicationRole> roleManager
+             )
         {
             _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            CheckRoles();
+        }
+        private void CheckRoles()
+        {
+            foreach (var roleName in RoleNames.Roles)
+            {
+                if (!_roleManager.RoleExistsAsync(roleName).Result)
+                {
+                    var result = _roleManager.CreateAsync(new ApplicationRole()
+                    {
+                        Name = roleName
+                    }).Result;
+                }
+            }
         }
 
         [AllowAnonymous]
@@ -59,7 +83,9 @@ namespace EnglishQuestionApp.Controllers
             var result = await _userManager.CreateAsync(user, model.Password);
             if (result.Succeeded)
             {
-
+                var count = _userManager.Users.Count();
+                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.User);
+                return RedirectToAction("Account", "Login");
             }
             else
             {
@@ -68,13 +94,43 @@ namespace EnglishQuestionApp.Controllers
                 model.ConfirmPassword = string.Empty;
                 return View(model);
             }
-
-            return View();
         }
 
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.Password = string.Empty;
+                return View(model);
+            }
+
+            var result =
+                await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Kullanıcı adı veya şifre hatalı");
+                return View(model);
+            }
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Account", "Login");
         }
     }
 }
