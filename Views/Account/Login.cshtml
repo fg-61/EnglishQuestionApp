@@ -4,43 +4,41 @@
 	ViewBag.Title = "Giriş";
 }
 
-<Style> 
-	
-</Style>
+<div class="form-page">
+	<form asp-controller="Account" asp-action="Login" method="post">
+		<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+		<!-- UserName input -->
+		<div class="form-outline mb-4">
+			<label asp-for="UserName" class="form-label"></label>
+			<input asp-for="UserName" class="form-control" />
+			<span asp-validation-for="UserName" class="text-danger"></span>
+		</div>
 
-<form asp-controller="Account" asp-action="Login" method="post">
+		<!-- Password input -->
+		<div class="form-outline mb-4">
+			<label asp-for="Password" class="form-label" for="form1Example2"></label>
+			<input asp-for="Password" type="password" class="form-control" />
+			<span asp-validation-for="Password" class="text-danger"></span>
 
-	<!-- UserName input -->
-	<div class="form-outline mb-4">
-		<label asp-for="UserName" class="form-label"></label>
-		<input asp-for="UserName" class="form-control" />
-		<span asp-validation-for="UserName" class="text-danger"></span>
-	</div>
+		</div>
 
-	<!-- Password input -->
-	<div class="form-outline mb-4">
-		<label asp-for="Password" class="form-label" for="form1Example2"></label>
-		<input asp-for="Password" type="password" class="form-control" />
-		<span asp-validation-for="Password" class="text-danger"></span>
+		<!-- 2 column grid layout for inline styling -->
+		<div class="row mb-4">
+			<div class="col d-flex justify-content-center">
+				<!-- Checkbox -->
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+					<label class="form-check-label" for="form1Example3"> Beni Hatırla </label>
+				</div>
+			</div>
 
-	</div>
-
-	<!-- 2 column grid layout for inline styling -->
-	<div class="row mb-4">
-		<div class="col d-flex justify-content-center">
-			<!-- Checkbox -->
-			<div class="form-check">
-				<input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-				<label class="form-check-label" for="form1Example3"> Beni Hatırla </label>
+			<div class="col">
+				<!-- Register link -->
+				<a asp-controller="Account" asp-action="Register" class="login_anchor">Kayıt Ol</a>
 			</div>
 		</div>
 
-		<div class="col">
-			<!-- Register link -->
-			<a asp-controller="Account" asp-action="Register" class="login_anchor">Kayıt Ol</a>
-		</div>
-	</div>
-
-	<!-- Submit button -->
-	<button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
-</form>
+		<!-- Submit button -->
+		<button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+	</form>
+</div>

@@ -2,120 +2,135 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
 
 html {
-   height: 100%;
+    height: 100%;
 }
 
-body {
-	/* Remember to use the other versions for IE 10 and older browsers! */
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 100%;
-	font-family: 'lato', sans-serif;
-	color: #fff;
-	background: #222222;
-	background: #16222A; /* fallback for old browsers */
-	background: -webkit-linear-gradient(to top, #16222A, #3A6073); /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to left, #16222A, #3A6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.form-page {
+    /* Remember to use the other versions for IE 10 and older browsers! */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    font-family: 'lato', sans-serif;
+    color: #fff;
+    background: #222222;
+    background: #16222A; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, #16222A, #3A6073); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, #16222A, #3A6073); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .logo {
-	font-family: "museo-slab";
-	font-size: 40px;
-	text-align: center;
-	padding: 20px 20px 0;
-	margin: 0;
+    font-family: "museo-slab";
+    font-size: 40px;
+    text-align: center;
+    padding: 20px 20px 0;
+    margin: 0;
 }
 
 .login-item {
-	color: #ffff;
-	padding:25px 25px 0;
-	margin: 20px 20px 0;	
-	border-radius: 3px;
+    color: #ffff;
+    padding: 25px 25px 0;
+    margin: 20px 20px 0;
+    border-radius: 3px;
 }
 
 input {
-  border: 0;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  outline: 0;
-  padding: 0;
-  -webkit-transition: background-color .3s;
-  transition: background-color .3s;
+    border: 0;
+    color: inherit;
+    font: inherit;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    -webkit-transition: background-color .3s;
+    transition: background-color .3s;
 }
 
 .user:before {
-  content: '\f007';
-  font: 14px fontawesome;
-	color: #5b5b5b;
+    content: '\f007';
+    font: 14px fontawesome;
+    color: #5b5b5b;
 }
 
 .lock:before {
-  content: '\f023';
-  font: 14px fontawesome;
-	color: #5b5b5b;
+    content: '\f023';
+    font: 14px fontawesome;
+    color: #5b5b5b;
 }
 
-form{
-	padding: 70px;
+form {
+    padding: 70px;
 }
 
 .form input[type="password"], .form input[type="text"], .form input[type="submit"] {
-  width: 100%;
+    width: 100%;
 }
 
 .form-login label,
 .form-login input[type="text"],
 .form-login input[type="password"],
 .form-login input[type="submit"] {
-  border-radius: 0.25rem;
-  padding: 1rem;
-  color: #3A3F44;  
+    border-radius: 0.25rem;
+    padding: 1rem;
+    color: #3A3F44;
 }
 
 .form-login label {
-  background-color: #222222;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+    background-color: #222222;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
 }
 
 .form-login input[type="text"], .form-login input[type="password"] {
-  background-color: #ffffff;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
+    background-color: #ffffff;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
 }
-.form-login input[type="text"]:focus, .form-login input[type="text"]:hover, .form-login input[type="password"]:focus, .form-login input[type="password"]:hover {
-  background-color: #eeeeee;
-}
+
+    .form-login input[type="text"]:focus, .form-login input[type="text"]:hover, .form-login input[type="password"]:focus, .form-login input[type="password"]:hover {
+        background-color: #eeeeee;
+    }
+
 .form-login input[type="submit"] {
-  text-transform: uppercase;
-  color: white;
+    text-transform: uppercase;
+    color: white;
 }
 
 .form-field {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin-bottom: 2rem;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 2rem;
 }
 
 
 .hidden {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
 }
 
 .text--center {
-  text-align: center;
+    text-align: center;
 }
 
+.question-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.question {
+    width: 50%;
+}
+
+    .question:nth-child(odd) {
+        padding-right: 10px;
+    }
