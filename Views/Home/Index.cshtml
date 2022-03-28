@@ -1,187 +1,101 @@
 ﻿<!-- ViewModel Eklenecek-->
-
+@model List<MostRecentViewModel>
 @{
 	ViewBag.Title = "Kayıt Ol";
 }
 
 <div class="container w-75">
-        <div class="row p-5">
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                <option selected>Open this select menu</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
-            <!-- Text -->
-            <div class="card mb-5">
-                <div class="card-body">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi temporibus nesciunt magni voluptatibus eligendi vero animi natus tempore, id itaque unde fuga, molestiae cum voluptatem sed enim exercitationem quod libero iure quia minus cumque ipsum? Officiis nihil, iste corrupti quisquam rem ratione accusamus tempora nam odio! Eligendi vero reiciendis sequi reprehenderit dicta facere velit fugit quam libero magnam cumque laudantium saepe corrupti ipsam, itaque aliquam eos quidem, eius, sed cupiditate nemo blanditiis deleniti nisi quasi! Aperiam, ipsum cum minus esse molestiae blanditiis facilis consequatur totam, eaque ea doloremque sit vel possimus. Fugiat, explicabo at doloribus consequuntur mollitia cupiditate dolor vitae!
-                </div>
-            </div>
-            <!-- Question Form -->
-            <form class="p-0">
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                        placeholder="Soru 1"></textarea>
-                </div>
-                <!-- Answers -->
-                <div class="question-container">
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="A ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="B ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="C ) "></textarea>
-                    </div>
-                    <div class="question mb-2">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="D ) "></textarea>
-                    </div>
-                </div>
-                <!-- Answers End-->
+	<div class="row p-5">
+		<select id="paragraphs" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+			@for (int i = 0; i < Model.Count; i++)
+			{
+				<option data-list="@Model[i].Title" value="@i">@Model[i].Title</option>
+			}
+		</select>
+		<!-- Text -->
+		<div class="card mb-5">
+			<div id="paragraph-text" class="card-body">
+				@foreach (var item in Model[0].Paragraphs)
+				{
+					<p>@item</p>
+				}
+			</div>
+		</div>
+		<!-- Question Form -->
+		@for (int i = 0; i < 4; i++)
+		{
+			<form class="p-0">
+				<div class="mb-3">
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+						  placeholder="Soru 1"></textarea>
+				</div>
+				<!-- Answers -->
+			<div class="question-container">
+					<div class="question mb-1">
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+							  placeholder="A ) "></textarea>
+					</div>
+					<div class="question mb-1">
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+							  placeholder="B ) "></textarea>
+					</div>
+					<div class="question mb-1">
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+							  placeholder="C ) "></textarea>
+					</div>
+					<div class="question mb-2">
+						<textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+							  placeholder="D ) "></textarea>
+					</div>
+				</div>
+				<!-- Answers End-->
+				<!-- Select Correct Answer -->
+			<div class="w-25 mx-auto mb-5">
+					<select class="form-select" aria-label="Default select example">
+						<option selected>Doğru Cevap Seç</option>
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+						<option value="D">D</option>
+					</select>
+				</div>
+				<!-- Select Correct Answer End -->
+		</form>
+			<!-- Question Form End -->
+		}
 
-                <!-- Select Correct Answer -->
-                <div class="w-25 mx-auto mb-5">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Doğru Cevap Seç</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                    </select>
-                </div>
-                <!-- Select Correct Answer End -->
-            </form>
-            <!-- Question Form End -->
 
-            <!-- Question Form -->
-            <form class="p-0">
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                        placeholder="Soru 2"></textarea>
-                </div>
-                <!-- Answers -->
-                <div class="question-container">
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="A ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="B ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="C ) "></textarea>
-                    </div>
-                    <div class="question mb-2">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="D ) "></textarea>
-                    </div>
-                </div>
-                <!-- Answers End-->
+		<button type="button" class="w-50 mx-auto btn btn-outline-primary">SINAV OLUŞTUR</button>
+	</div>
+</div>
 
-                <!-- Select Correct Answer -->
-                <div class="w-25 mx-auto mb-5">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Doğru Cevap Seç</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                    </select>
-                </div>
-                <!-- Select Correct Answer End -->
-            </form>
-            <!-- Question Form End -->
-            
-            <!-- Question Form -->
-            <form class="p-0">
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                        placeholder="Soru 3"></textarea>
-                </div>
-                <!-- Answers -->
-                <div class="question-container">
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="A ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="B ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="C ) "></textarea>
-                    </div>
-                    <div class="question mb-2">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="D ) "></textarea>
-                    </div>
-                </div>
-                <!-- Answers End-->
+@*@section Scripts
+{
 
-                <!-- Select Correct Answer -->
-                <div class="w-25 mx-auto mb-5">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Doğru Cevap Seç</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                    </select>
-                </div>
-                <!-- Select Correct Answer End -->
-            </form>
-            <!-- Question Form End -->
-
-            <!-- Question Form -->
-            <form class="p-0">
-                <div class="mb-3">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                        placeholder="Soru 4"></textarea>
-                </div>
-                <!-- Answers -->
-                <div class="question-container">
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="A ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="B ) "></textarea>
-                    </div>
-                    <div class="question mb-1">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="C ) "></textarea>
-                    </div>
-                    <div class="question mb-2">
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
-                            placeholder="D ) "></textarea>
-                    </div>
-                </div>
-                <!-- Answers End-->
-
-                <!-- Select Correct Answer -->
-                <div class="w-25 mx-auto mb-5">
-                    <select class="form-select" aria-label="Default select example">
-                        <option selected>Doğru Cevap Seç</option>
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="D">D</option>
-                    </select>
-                </div>
-                <!-- Select Correct Answer End -->
-            </form>
-            <!-- Question Form End -->
-
-        </div>
-    </div>
-
+<script>
+	$(document).ready(function() {
+		$('#paragraphs').change(function () {
+			var textNumber = $(this).val();
+			var texts = `@Model`;
+			alert("calisiyor");
+			//$.ajax({
+			//	url: "/home/getText",
+			//	type: "POST",
+			//	data:
+			//	{
+			//		"textNumber": textNumber,
+			//		"texts": texts
+			//	},
+			//	datatype: "json",
+			//	error: function (request, status, error) {
+			//		console.log(request);
+			//	},
+			//	success: function (response) {
+			//		console.log(response);
+			//	}
+			//});
+		});
+	});
+</script>
+*@
+}
