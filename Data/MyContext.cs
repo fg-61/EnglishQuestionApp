@@ -1,4 +1,5 @@
-﻿using EnglishQuestionApp.Models.Identity;
+﻿using EnglishQuestionApp.Models.Entities.Test;
+using EnglishQuestionApp.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,5 +18,12 @@ namespace EnglishQuestionApp.Data
         {
             base.OnModelCreating(builder);
         }
+
+        public DbSet<Test> Tests { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<Paragraph> Paragraphs { get; set; }
+
+
     }
 }

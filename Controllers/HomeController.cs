@@ -17,7 +17,7 @@ namespace EnglishQuestionApp.Controllers
 
             List<MostRecentViewModel> mostRecents = new List<MostRecentViewModel>();
 
-            for (int i=1; i<=2; i++)
+            for (int i=1; i<=5; i++)
             {
                 List<string> paragraphs = new List<string>();
 
@@ -45,6 +45,12 @@ namespace EnglishQuestionApp.Controllers
                 }
             }
             return View(mostRecents);
+        }
+
+        [HttpPost]
+        public IActionResult Index(MostRecentViewModel model)
+        {
+            return RedirectToAction("GetTests","Home");
         }
 
         [HttpPost]
