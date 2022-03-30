@@ -20,6 +20,7 @@
 			<div class="card mb-5">
 				<div id="paragraph-text" class="card-body">
 					@Html.Raw(ViewBag.MostRecents[0].Paragraphs)
+					<input type="hidden" asp-for="@Model.Paragraphs" value="@ViewBag.MostRecents[0].Paragraphs"/>
 				</div>
 			</div>
 			<!-- Question Form -->

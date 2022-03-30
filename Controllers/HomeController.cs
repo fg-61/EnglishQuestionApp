@@ -60,6 +60,10 @@ namespace EnglishQuestionApp.Controllers
         public JsonResult GetText(string textTitle)
         {
             string text = mostRecents.Find(x => x.Title == textTitle).Paragraphs;
+            int index = mostRecents.FindIndex(x => x.Title == textTitle);
+
+            text += "<input type=\"hidden\" value=\""+ text +"\" id=\"Paragraphs\" name=\"Paragraphs\">";
+            
             return Json(text);
         }
     }
