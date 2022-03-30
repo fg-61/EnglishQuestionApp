@@ -1,26 +1,25 @@
-﻿<!-- ViewModel Eklenecek-->
-@model List<MostRecentViewModel>
+﻿@using EnglishQuestionApp.Models.Entities.Test
+@model Test
+
 @{
 	ViewBag.Title = "Kayıt Ol";
+	List<Question> testQuestion = new List<Question>();
+	List<Option> questionOptions = new List<Option>();
 }
 
 <div class="container w-75">
 	<div class="row p-5">
 		<form method="post" asp-controller="Home" asp-action="Index">
-			<select name="title" id="paragraphs" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-				@for (int i = 0; i < Model.Count; i++)
+			<select asp-for="@Model.Title" name="title" id="paragraphs" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+				@for (int i = 0; i < ViewBag.MostRecents.Count; i++)
 				{
-					<option value="@Model[i].Title">@Model[i].Title</option>
+					<option value="@ViewBag.MostRecents[i].Title">@ViewBag.MostRecents[i].Title</option>
 				}
 			</select>
 			<!-- Text -->
 			<div class="card mb-5">
 				<div id="paragraph-text" class="card-body">
-					@foreach (var item in Model[0].Paragraphs)
-					{
-						<p>@item</p>
-					}
-					<input type="hidden" asp-for="@Model[0].Paragraphs">
+					@Html.Raw(ViewBag.MostRecents[0].Paragraphs)
 				</div>
 			</div>
 			<!-- Question Form -->
@@ -76,22 +75,27 @@
 @section Scripts
 {
 
-<script>
+<script text->
 	$(document).ready(function() {
-		$("#paragraphs").change(function () {
-			var i = $(this).val();
-			var markup;
-			alert(i);
-			markup = `@foreach(var item in Model[0].Paragraphs)
-			{
-				<p>@item</p>
-				
-			} <input type="hidden" asp-for="@Model[0].Paragraphs.">`;
-			paragraph = $("#paragraph-text");
-			paragraph.empty();
-			paragraph.append(markup);
+		$('#paragraphs').change(function () {
+			var textTitle = $(this).val();
+			$.ajax({
+				url: "/home/getText",
+				type: "POST",
+				data:{"textTitle": textTitle},
+				error: function (request, status, error) {
+					console.log(request);
+				},
+				success: function (response) {
+					console.log(response);
+					markup = response;
+					paragraph = $("#paragraph-text");
+					paragraph.empty();
+					paragraph.append(markup);
+				}
+			});
 		});
-	})
+	});
 </script>
 
 }

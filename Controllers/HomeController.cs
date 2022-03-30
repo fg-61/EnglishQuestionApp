@@ -3,28 +3,28 @@ using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
 
 namespace EnglishQuestionApp.Controllers
 {
-    public class HomeController : Controller
+	public class HomeController : Controller
     {
+        static List<MostRecentViewModel> mostRecents = new List<MostRecentViewModel>();
         public IActionResult Index()
         {
             string urlHome = "https://www.wired.com";
             HtmlWeb web = new HtmlWeb();
             HtmlDocument doc = web.Load(urlHome);
 
-            List<MostRecentViewModel> mostRecents = new List<MostRecentViewModel>();
+            mostRecents.Clear();
 
             for (int i=1; i<=5; i++)
             {
-                List<string> paragraphs = new List<string>();
+                string paragraphs = "";
 
                 HtmlNode titleNode = doc.DocumentNode.SelectSingleNode("//*[@id='main-content']/div[1]/div[1]/section/div[3]/div/div/div/div/div[" + i + "]/div[2]/a/h2");
                 if (titleNode != null)
                 {
-                    string title = titleNode.InnerText;
+                    string title = WebUtility.HtmlDecode(titleNode.InnerText); ;
                     // Get Content
                     HtmlNode contentLinkNode = doc.DocumentNode.SelectSingleNode("//*[@id='main-content']/div[1]/div[1]/section/div[3]/div/div/div/div/div[" + i + "]/div[2]/a[@href]");
                     string contentHrefValue = contentLinkNode.GetAttributeValue("href", string.Empty);
@@ -35,7 +35,8 @@ namespace EnglishQuestionApp.Controllers
                     {
                         string content = contentNode.InnerText;
                         string decodedstring = WebUtility.HtmlDecode(content); // Fix the special characters
-                        paragraphs.Add(decodedstring);
+                        string text = "<p>" + decodedstring + "</p>";
+                        paragraphs += string.Concat(text);
                     }
                     mostRecents.Add(new MostRecentViewModel
                     {
@@ -44,7 +45,9 @@ namespace EnglishQuestionApp.Controllers
                     });
                 }
             }
-            return View(mostRecents);
+
+            ViewBag.MostRecents = mostRecents;
+            return View();
         }
 
         [HttpPost]
@@ -54,10 +57,10 @@ namespace EnglishQuestionApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult GetText(List<MostRecentViewModel> texts, int textNumber)
+        public JsonResult GetText(string textTitle)
         {
-            List<string> paragraphs = texts[textNumber].Paragraphs;
-            return View(paragraphs);
+            string text = mostRecents.Find(x => x.Title == textTitle).Paragraphs;
+            return Json(text);
         }
     }
 }
