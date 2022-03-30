@@ -1,4 +1,7 @@
-﻿using EnglishQuestionApp.ViewModels;
+﻿using EnglishQuestionApp.Data;
+using EnglishQuestionApp.Models.Entities.Test;
+using EnglishQuestionApp.ViewModels;
+using EnglishQuestionApp.ViewModels.TestViewModels;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -6,9 +9,14 @@ using System.Net;
 
 namespace EnglishQuestionApp.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
     {
         static List<MostRecentViewModel> mostRecents = new List<MostRecentViewModel>();
+        private readonly MyContext _dbContext;
+        public HomeController(MyContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         public IActionResult Index()
         {
             string urlHome = "https://www.wired.com";
@@ -17,7 +25,7 @@ namespace EnglishQuestionApp.Controllers
 
             mostRecents.Clear();
 
-            for (int i=1; i<=5; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 string paragraphs = "";
 
@@ -51,9 +59,10 @@ namespace EnglishQuestionApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(MostRecentViewModel model)
+        public IActionResult Index(TestViewModel model)
         {
-            return RedirectToAction("GetTests","Home");
+            
+            return RedirectToAction("GetTests", "Home");
         }
 
         [HttpPost]
@@ -62,8 +71,8 @@ namespace EnglishQuestionApp.Controllers
             string text = mostRecents.Find(x => x.Title == textTitle).Paragraphs;
             int index = mostRecents.FindIndex(x => x.Title == textTitle);
 
-            text += "<input type=\"hidden\" value=\""+ text +"\" id=\"Paragraphs\" name=\"Paragraphs\">";
-            
+            text += "<input type=\"hidden\" value=\"" + text + "\" id=\"Paragraphs\" name=\"Paragraphs\">"; // post islemi icin
+
             return Json(text);
         }
     }
