@@ -1,0 +1,109 @@
+﻿@using EnglishQuestionApp.Models.Entities.Test
+@model Test
+
+@{
+	ViewBag.Title = "Quiz";
+}
+
+<Style>
+	span:hover {
+		background: #7CFC00;
+		cursor: pointer;
+	}
+	.answer{
+	    border: 1px solid #2b2b2b;
+		padding: 7px;
+		margin-top: 7px;
+	}
+</Style>
+
+<div class="container w-75">
+	<div class="row p-5">
+
+		<!-- Title -->
+		<h1 class="mb-3">@Model.Title</h1>
+		<!-- Title End -->
+		<!-- Text -->
+		@Html.Raw(@Model.Paragraphs)
+		<!-- Text End -->
+		<!-- Questions -->
+		<div class="row p-3">
+			@for (int i = 1; i < 5; i++)
+			{
+				<div class="p-3 w-50">
+					<div class="mb-3">
+						<p class="m-0">
+							@i) @Model.Questions[i-1].QuestionContent
+						</p>
+					</div>
+					<!-- Options -->
+					<div class="options p-0 m-0">
+						<div class="answer" id="@Model.Questions[i-1].Options[0].Id" onclick="SelectAnswer(`@Model.Questions[i-1].Id`,`@Model.Questions[i-1].Options[0].Id`);">
+								A) @Model.Questions[i-1].Options[0].OptionContent
+						</div>
+						<div class="answer" id="@Model.Questions[i-1].Options[1].Id" onclick="SelectAnswer(`@Model.Questions[i-1].Id`,`@Model.Questions[i-1].Options[1].Id`);">
+								B) @Model.Questions[i-1].Options[1].OptionContent
+						</div>
+						<div class="answer" id="@Model.Questions[i-1].Options[2].Id" onclick="SelectAnswer(`@Model.Questions[i-1].Id`,`@Model.Questions[i-1].Options[2].Id`);">
+								C) @Model.Questions[i-1].Options[2].OptionContent
+						</div>
+						<div class="answer" id="@Model.Questions[i-1].Options[3].Id" onclick="SelectAnswer(`@Model.Questions[i-1].Id`,`@Model.Questions[i-1].Options[3].Id`);">
+								D) @Model.Questions[i-1].Options[3].OptionContent
+						</div>
+					</div>
+					<!-- Options End-->
+
+			</div>
+				<!-- Questions End -->
+			}
+		</div>
+
+		<div class="w-50 mx-auto mb-5">
+			<button onclick="save()" type="submit" class="w-100 btn btn-light">SINAVI TAMAMLA</button>
+		</div>
+	</div>
+</div>
+
+@section Scripts
+{
+
+<script type="text/javascript">
+    var answerList = [];
+
+    function SelectAnswer(questionId, answerId) {
+        var answerModel = {
+            questionId: questionId,
+            optionId: answerId
+        };
+        var beforeChange = answerList.filter(x => x.questionId == answerModel.questionId);
+        if (beforeChange.length > 0) {
+            $("#" + beforeChange[0].optionId).attr('style', 'background-color:#fff');
+        }
+        var filteredAnswers = answerList.filter(x => x.questionId != answerModel.questionId);
+		
+        filteredAnswers.push(answerModel);
+        answerList = filteredAnswers;
+        for (var i = 0; i < answerList.length; i++) {
+            $("#" + answerList[i].optionId).attr('style', 'background-color:#ECECEC');
+        }
+    }
+
+    function save() {
+        $.ajax({
+            url: "/home/checkQuestionAnswers",
+            type: "POST",
+            data: { request: answerList },
+            success: function (response) {
+                for (var i = 0; i < response.length; i++) {
+                    console.log(response[i]);
+                    if (response[i].isCorrect) {
+                        $("#" + response[i].optionId).attr('style', 'background-color:#0f0');
+                    } else {
+                        $("#" + response[i].optionId).attr('style', 'background-color:#f00');
+                    }
+                }
+            }
+        });
+    }
+</script>
+}

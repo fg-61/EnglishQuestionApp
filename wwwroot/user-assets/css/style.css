@@ -5,6 +5,10 @@ html {
     height: 100%;
 }
 
+body{
+    height: 100%;
+}
+
 .form-page {
     /* Remember to use the other versions for IE 10 and older browsers! */
     display: flex;

@@ -1,5 +1,4 @@
-﻿@using EnglishQuestionApp.ViewModels.TestViewModels
-@model TestViewModel
+﻿@model TestViewModel
 
 @{
 	ViewBag.Title = "Kayıt Ol";
@@ -54,7 +53,7 @@
 					</div>
 					<!-- Answers End-->
 					<!-- Select Correct Answer -->
-				<div class="w-25 mx-auto mb-5">
+					<div class="w-25 mx-auto mb-5">
 						<select asp-for="@Model.Questions[i].CorrectAnswer" class="form-select" aria-label="Default select example">
 							<option selected>Doğru Cevap Seç</option>
 							<option value=0>A</option>

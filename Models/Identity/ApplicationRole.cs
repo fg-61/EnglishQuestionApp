@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EnglishQuestionApp.Models.Identity
 {
-    public class ApplicationRole : IdentityRole
-    {
-        public ApplicationRole()
+        public class ApplicationRole : IdentityRole
         {
-        }
+            public ApplicationRole()
+            {
+            }
 
-        public ApplicationRole(string name, string description)
-        {
-            this.Name = name;
-            this.Description = description;
+            public ApplicationRole(string name, string description)
+            {
+                this.Name = name;
+                this.Description = description;
+            }
+            [StringLength(100)]
+            public string Description { get; set; }
         }
-        [StringLength(100)]
-        public string Description { get; set; }
-    }
 }

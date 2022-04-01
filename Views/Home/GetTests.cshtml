@@ -1,0 +1,43 @@
+﻿@using EnglishQuestionApp.Models.Entities.Test
+@model List<Test>
+
+@{
+	ViewBag.Title = "Sınavlar";
+}
+
+<div class="container w-75 p-3">
+	<div>
+		<a asp-controller="Home" asp-action="Index" class="btn btn-success m-3">Yeni Test Oluştur</a>
+	</div>
+	<table class="table">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Başlık</th>
+				<th scope="col">Tarih</th>
+				<th scope="col"></th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			@for (int i = 1; i <= Model.Count; i++)
+			{
+				<tr>
+					<th scope="row">@i</th>
+					<td>@Model[i-1].Title</td>
+					<td>@Model[i-1].CreatedDate.ToString("dd/MM/yyyy")</td>
+					<td>
+						<a class="btn btn-outline-success" asp-controller="Home" asp-action="Quiz" asp-route-id="@Model[i-1].Id">
+							Sınava Gir
+						</a>
+					</td>
+					<td>
+						<a class="btn btn-danger" asp-controller="Home" asp-action="Delete" asp-route-id="@Model[i-1].Id">
+							Sil
+						</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

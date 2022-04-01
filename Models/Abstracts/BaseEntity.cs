@@ -8,7 +8,7 @@ namespace LiftServiceWebApp.Models.Abstracts
     {
         [Key]
         public TKey Id { get; set; } 
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         [StringLength(128)]
         public string CreatedUser { get; set; }
         public DateTime? UpdatedDate { get; set; }

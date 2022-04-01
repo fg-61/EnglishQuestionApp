@@ -10,8 +10,8 @@ namespace EnglishQuestionApp.Models.Entities.Test
         public string OptionContent { get; set; } // Seceengin icerigi
 
         // Bagli oldugu soruyu ifade ediyor
-        public Guid QuestinId { get; set; }
-        [ForeignKey(nameof(QuestinId))]
+        public Guid QuestionId { get; set; }
+        [ForeignKey(nameof(QuestionId))]
         public virtual Question Question { get; set; }
     }
 

@@ -85,7 +85,7 @@ namespace EnglishQuestionApp.Controllers
             {
                 var count = _userManager.Users.Count();
                 result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.User);
-                return RedirectToAction("Account", "Login");
+                return RedirectToAction("Login", "Account");
             }
             else
             {
@@ -117,7 +117,7 @@ namespace EnglishQuestionApp.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetTests", "Home");
             }
             else
             {
@@ -130,7 +130,7 @@ namespace EnglishQuestionApp.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Account", "Login");
+            return RedirectToAction("Login", "Account");
         }
     }
 }
