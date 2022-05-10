@@ -6,21 +6,26 @@
 
 <!-- Image and text -->
 <nav class="navbar navbar-light bg-light p-3" style="width:100%;">
-  <a class="navbar-brand" href="#">
-    <img src="~/user-assets/img/logo.png" width="200" height="50" class="d-inline-block align-top" alt="">
-  </a>
-  @if (signInManager.IsSignedIn(Context.User))
-  {
-      <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
+    <a class="navbar-brand" href="#">
+        <img src="~/user-assets/img/logo.png" width="200" height="50" class="d-inline-block align-top" alt="">
+    </a>
+    @if (signInManager.IsSignedIn(Context.User))
+    {
+        <div>
+        <a asp-controller="Home" asp-action="GetTests" class="btn btn-info">Testler</a>
 
-      @*@if (Context.User.IsInRole(RoleNames.Admin))
-      {
-          <a asp-area="Admin" asp-controller="Manage" asp-action="Index" class="white_btn">Admin Panel</a>
-          // admin özellik eklersek
-      } *@
-  }
-  else
-  {
-      <a asp-controller="Account" asp-action="Login" class="btn btn-info">Giriş Yap</a>
-  }
+        <a asp-controller="Account" asp-action="Logout" class="btn btn-danger">Çıkış Yap</a>
+        </div>
+
+
+        @*@if (Context.User.IsInRole(RoleNames.Admin))
+            {
+            <a asp-area="Admin" asp-controller="Manage" asp-action="Index" class="white_btn">Admin Panel</a>
+            // admin özellik eklersek
+            } *@
+    }
+    else
+    {
+        <a asp-controller="Account" asp-action="Login" class="btn btn-info">Giriş Yap</a>
+    }
 </nav>

@@ -84,7 +84,6 @@ namespace EnglishQuestionApp.Controllers
             if (result.Succeeded)
             {
                 var count = _userManager.Users.Count();
-                result = await _userManager.AddToRoleAsync(user, count == 1 ? RoleNames.Admin : RoleNames.User);
                 return RedirectToAction("Login", "Account");
             }
             else
@@ -103,6 +102,7 @@ namespace EnglishQuestionApp.Controllers
             return View();
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {

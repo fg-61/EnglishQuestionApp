@@ -116,7 +116,6 @@ namespace EnglishQuestionApp.Controllers
         public JsonResult GetText(string textTitle)
         {
             string text = mostRecents.Find(x => x.Title == textTitle).Paragraphs;
-            int index = mostRecents.FindIndex(x => x.Title == textTitle);
 
             text += "<input type=\"hidden\" value=\"" + text + "\" id=\"Paragraphs\" name=\"Paragraphs\">"; // post islemi icin
 
@@ -130,8 +129,6 @@ namespace EnglishQuestionApp.Controllers
             if (user == null) return BadRequest();
 
             List<Test> tests = _dbContext.Tests
-                            .Include(x => x.Questions)
-                            .ThenInclude(x => x.Options)
                             .Where(x => x.CreatedUser == user.Id).ToList();
 
             return View(tests);
@@ -158,8 +155,8 @@ namespace EnglishQuestionApp.Controllers
         public IActionResult Quiz(Guid id)
         {
             Test test = _dbContext.Tests
-                .Include(x => x.Questions)
-                .ThenInclude(x => x.Options)
+                .Include(x => x.Questions.OrderBy(x => x.CreatedDate))
+                .ThenInclude(x => x.Options.OrderBy(x => x.CreatedDate))
                 .FirstOrDefault(x => x.Id == id);
             if (test == null)
             {
